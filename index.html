@@ -190,7 +190,10 @@ footer li{margin-bottom:6px;line-height:1.45}
   .brow.ours{margin:0 -12px;padding:14px 12px}
 }
 /* ---------- map ---------- */
-.mapwrap{margin-top:34px}
+.mapwrap{margin-top:0}
+.mappanel{background:var(--board);padding:20px 20px 18px;border-radius:2px;margin:24px 0 30px}
+.mappanel .legend{margin-top:12px}
+
 .mapwrap svg{width:100%;height:auto;display:block}
 .legend{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 22px;font-size:14px;color:var(--board-text)}
 .legend li{display:flex;align-items:center;gap:8px}
@@ -247,10 +250,10 @@ footer li{margin-bottom:6px;line-height:1.45}
   <div class="wrap">
     <a class="mark" href="#top">ontario<b>is</b>late.ca</a>
     <nav>
-      <a href="#harm">The harm</a>
+      <a href="#harm">What it costs</a>
+      <a href="#where">Who's stopped</a>
       <a href="#stuck">Why it's stuck</a>
       <a href="#against">Objections</a>
-      <a href="#help">Help</a>
       <a class="go" href="#act">Write your MPP</a>
     </nav>
   </div>
@@ -262,8 +265,78 @@ footer li{margin-bottom:6px;line-height:1.45}
     <p class="say">In 2020, Ontario passed a law to stop changing the clocks. It was never switched on. Six provinces and territories have stopped. Ontario hasn't.</p>
     <a class="act" style="margin-top:22px" href="#act">Write your MPP — four minutes</a>
 
-    <div class="mapwrap">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1630" role="img" aria-labelledby="mapT mapD">
+    <div class="clocks">
+      <div class="clk">
+        <div class="lab">TORONTO, RIGHT NOW</div>
+        <div class="val" id="now">—</div>
+        <div class="sub" id="nowsub">&nbsp;</div>
+      </div>
+      <div class="clk hot">
+        <div class="lab">UNTIL ONTARIO CHANGES ITS CLOCKS</div>
+        <div class="val" id="cd">—</div>
+        <div class="sub" id="cdsub">&nbsp;</div>
+      </div>
+      <div class="clk">
+        <div class="lab">DAYS SINCE THE LAW PASSED</div>
+        <div class="val" id="days">—</div>
+        <div class="sub">30 November 2020</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="harm">
+  <div class="wrap">
+    <h2>Changing the clocks hurts people</h2>
+    <p class="kick">Not the time we keep. The act of changing it. Every March and every November, the same things happen.</p>
+    <div class="harm">
+      <div><b>+6%</b><span>More fatal car crashes in the week after we spring forward</span></div>
+      <div><b>+11%</b><span>More people diagnosed with depression after we fall back</span></div>
+      <div><b>Monday</b><span>Heart attacks and workplace injuries both jump on the first one</span></div>
+    </div>
+    <p class="body" style="margin-top:22px">None of these is huge on its own. But we cause all of them, twice a year, on purpose. In 2020, every MPP in Ontario voted to stop.</p>
+  </div>
+</section>
+
+<section id="stuck">
+  <div class="wrap">
+    <h2>Why hasn't it happened?</h2>
+    <p class="kick">The law needs one signature from the Attorney General. The government said it would sign when Quebec and New York State stopped changing their clocks too.</p>
+
+    <div class="chain" aria-label="Ontario is waiting for New York, which is waiting for five other states, which are waiting for Congress">
+      <div class="node on"><b>Ontario</b><span>Has the law. Waiting.</span></div>
+      <div class="arrow">waits for</div>
+      <div class="node"><b>New York</b><span>Can't act on its own</span></div>
+      <div class="arrow">waits for</div>
+      <div class="node"><b>5 states</b><span>CT, MA, NJ, PA, VT</span></div>
+      <div class="arrow">wait for</div>
+      <div class="node"><b>Congress</b><span>Stuck since 2018</span></div>
+    </div>
+
+    <div class="prose" style="margin-top:26px">
+      <p class="body">New York can't do it. US states need permission from Congress to keep daylight time all year. New York's own law also waits for five other states to go first.</p>
+      <p class="body">Congress passed a bill in the House in July 2026. It's stuck in the Senate now. The same bill passed the Senate in 2022 and then died.</p>
+      <p class="body">So Ontario is waiting for New York, which is waiting for five states, which are waiting for Congress. That has been the plan for six years.</p>
+    </div>
+
+    <div class="tl" aria-label="Timeline from the law passing in 2020 to today">
+      <div class="tl-bar"><div class="tl-fill"></div></div>
+      <div class="tl-marks">
+        <div class="tl-m"><b>30 Nov 2020</b><span>Law passes. Every MPP votes yes.</span></div>
+        <div class="tl-m end"><b id="tlDays">—</b><span>days waiting for a signature</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="where">
+  <div class="wrap">
+    <h2>What each one did</h2>
+    <p class="kick">Six have stopped. Quebec asked its people and hasn't acted. Ontario has the law and hasn't used it.</p>
+
+    <div class="mappanel">
+      <div class="mapwrap">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1630" role="img" aria-labelledby="mapT mapD">
 <title id="mapT">Which parts of Canada still change their clocks</title>
 <desc id="mapD">Yukon, Northwest Territories, British Columbia, Alberta, Saskatchewan and Manitoba have stopped changing their clocks. Ontario has a law to stop but has not used it. Quebec asked its people and has not acted. Nunavut and the Atlantic provinces still change.</desc>
 <style>.fo{fill:#1B2229}.m{stroke:#14191E;stroke-width:2.2;stroke-linejoin:round;fill-rule:evenodd}.done{fill:#4E8B5F}.late{fill:#E8A317}.wait{fill:#5A6670}.chg{fill:#343E48}.lb{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-weight:600;font-size:56px;letter-spacing:.03em;fill:#F2F1EB;text-anchor:middle;paint-order:stroke;stroke:#14191E;stroke-width:8px;stroke-linejoin:round}.lb.dk{fill:#14191E;stroke:#E8A317;stroke-width:0}.sb{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-weight:600;font-size:30px;letter-spacing:.14em;fill:#F2F1EB;text-anchor:middle;opacity:.9;paint-order:stroke;stroke:#14191E;stroke-width:7px;stroke-linejoin:round}.sb.dk{fill:#14191E;stroke-width:0;opacity:1}.sm{font-size:44px}@media (max-width:640px){.sb{display:none}.sm{display:none}}</style>
@@ -340,81 +413,15 @@ footer li{margin-bottom:6px;line-height:1.45}
 <text class="lb sm" x="1598" y="1372">NB</text>
 <text class="lb sm" x="1712" y="1462">NS</text>
 </svg>
-    </div>
-    <ul class="legend" aria-label="Map legend">
-      <li><i class="k k-done"></i>Stopped changing clocks</li>
-      <li><i class="k k-late"></i>Has the law. Hasn't used it.</li>
-      <li><i class="k k-wait"></i>People voted to stop. Government hasn't.</li>
-      <li><i class="k k-chg"></i>Still changes</li>
-    </ul>
-
-    <div class="clocks">
-      <div class="clk">
-        <div class="lab">TORONTO, RIGHT NOW</div>
-        <div class="val" id="now">—</div>
-        <div class="sub" id="nowsub">&nbsp;</div>
       </div>
-      <div class="clk hot">
-        <div class="lab">UNTIL ONTARIO CHANGES ITS CLOCKS</div>
-        <div class="val" id="cd">—</div>
-        <div class="sub" id="cdsub">&nbsp;</div>
-      </div>
-      <div class="clk">
-        <div class="lab">DAYS SINCE THE LAW PASSED</div>
-        <div class="val" id="days">—</div>
-        <div class="sub">30 November 2020</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<section id="harm">
-  <div class="wrap">
-    <h2>Changing the clocks hurts people</h2>
-    <p class="kick">Not the time we keep. The act of changing it. Every March and every November, the same things happen.</p>
-    <div class="harm">
-      <div><b>+6%</b><span>More fatal car crashes in the week after we spring forward</span></div>
-      <div><b>+11%</b><span>More people diagnosed with depression after we fall back</span></div>
-      <div><b>Monday</b><span>Heart attacks and workplace injuries both jump on the first one</span></div>
-    </div>
-    <p class="body" style="margin-top:22px">None of these is huge on its own. But we cause all of them, twice a year, on purpose. In 2020, every MPP in Ontario voted to stop.</p>
-  </div>
-</section>
-
-<section id="stuck">
-  <div class="wrap">
-    <h2>Why hasn't it happened?</h2>
-    <p class="kick">The law needs one signature from the Attorney General. The government said it would sign when Quebec and New York State stopped changing their clocks too.</p>
-
-    <div class="chain" aria-label="Ontario is waiting for New York, which is waiting for five other states, which are waiting for Congress">
-      <div class="node on"><b>Ontario</b><span>Has the law. Waiting.</span></div>
-      <div class="arrow">waits for</div>
-      <div class="node"><b>New York</b><span>Can't act on its own</span></div>
-      <div class="arrow">waits for</div>
-      <div class="node"><b>5 states</b><span>CT, MA, NJ, PA, VT</span></div>
-      <div class="arrow">wait for</div>
-      <div class="node"><b>Congress</b><span>Stuck since 2018</span></div>
+      <ul class="legend" aria-label="Map legend">
+        <li><i class="k k-done"></i>Stopped changing clocks</li>
+        <li><i class="k k-late"></i>Has the law. Hasn't used it.</li>
+        <li><i class="k k-wait"></i>People voted to stop. Government hasn't.</li>
+        <li><i class="k k-chg"></i>Still changes</li>
+      </ul>
     </div>
 
-    <div class="prose" style="margin-top:26px">
-      <p class="body">New York can't do it. US states need permission from Congress to keep daylight time all year. New York's own law also waits for five other states to go first.</p>
-      <p class="body">Congress passed a bill in the House in July 2026. It's stuck in the Senate now. The same bill passed the Senate in 2022 and then died.</p>
-      <p class="body">So Ontario is waiting for New York, which is waiting for five states, which are waiting for Congress. That has been the plan for six years.</p>
-    </div>
-
-    <div class="tl" aria-label="Timeline from the law passing in 2020 to today">
-      <div class="tl-bar"><div class="tl-fill"></div></div>
-      <div class="tl-marks">
-        <div class="tl-m"><b>30 Nov 2020</b><span>Law passes. Every MPP votes yes.</span></div>
-        <div class="tl-m end"><b id="tlDays">—</b><span>days waiting for a signature</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="where">
-  <div class="wrap">
-    <h2>What each one did</h2>
     <table class="tbl">
       <thead><tr><th>Where</th><th>What happened</th><th>1 Nov</th></tr></thead>
       <tbody>
