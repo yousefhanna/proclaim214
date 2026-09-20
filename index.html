@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ontario Is Late</title>
+<meta name="description" content="Ontario passed the law to stop changing the clocks in 2020. It has never been switched on. Write your MPP, the Premier and the Attorney General in four minutes.">
+<meta property="og:title" content="Ontario Is Late">
+<meta property="og:description" content="We passed the law to stop changing the clocks in 2020. It was never switched on. Six provinces and territories stop on 1 November. Ontario doesn't.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ontarioislate.ca/">
+<meta property="og:site_name" content="Ontario Is Late">
+<meta property="og:locale" content="en_CA">
+<meta property="og:image" content="https://ontarioislate.ca/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ontario is late. A status board showing Yukon, NWT, Saskatchewan, British Columbia, Alberta and Manitoba marked DONE, and Ontario marked LATE.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ontario Is Late">
+<meta name="twitter:description" content="We passed the law to stop changing the clocks in 2020. It was never switched on.">
+<meta name="twitter:image" content="https://ontarioislate.ca/og.png">
+<link rel="canonical" href="https://ontarioislate.ca/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EAE8E0; --paper-2:#F2F1EB; --card:#FBFAF6;
+  --ink:#171C21; --ink-soft:#4E585F; --rule:#CBC9C0;
+  --board:#14191E; --board-2:#1C232A; --board-text:#C6CFD6; --board-dim:#78848E;
+  --late:#E8A317; --done:#6E7F6B; --flag:#A8402C;
+  --measure:61ch;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:17px;line-height:1.55;
+  font-variant-numeric:tabular-nums}
+h1,h2{font-family:"Bricolage Grotesque","IBM Plex Sans",sans-serif;font-weight:800;
+  line-height:1;letter-spacing:-0.035em;margin:0}
+h3{font-family:"Bricolage Grotesque",sans-serif;font-weight:600;letter-spacing:-0.02em;margin:0}
+p{margin:0 0 1em}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--late);outline-offset:3px}
+.wrap{max-width:980px;margin:0 auto;padding:0 22px}
+.prose{max-width:var(--measure)}
+.body{font-size:16.5px;color:var(--ink-soft);max-width:var(--measure)}
+.kick{font-size:19.5px;max-width:var(--measure);margin-bottom:16px}
+
+/* ---------- sticky bar ---------- */
+.bar{position:sticky;top:0;z-index:20;background:rgba(234,232,224,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:11px 22px;flex-wrap:wrap}
+.mark{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:17px;
+  letter-spacing:-0.045em;text-decoration:none}
+.mark b{color:var(--flag)}
+.bar nav{display:flex;align-items:center;gap:15px;font-size:14px}
+.bar nav a{text-decoration:none;color:var(--ink-soft)}
+.bar nav a:hover{color:var(--ink)}
+.bar .go{background:var(--ink);color:var(--paper);padding:8px 15px;border-radius:2px;
+  font-weight:600;font-size:14px}
+.bar .go:hover{background:var(--flag);color:#fff}
+@media (max-width:700px){.bar nav a:not(.go){display:none}}
+
+/* ---------- hero ---------- */
+.hero{background:var(--board);color:var(--paper-2);padding:48px 0 42px}
+.hero h1{font-size:clamp(50px,12.5vw,118px);line-height:.88;max-width:9ch}
+.hero h1 span{color:var(--late)}
+.hero .say{max-width:45ch;margin-top:20px;font-size:18px;color:var(--board-text)}
+
+/* ---------- clock strip ---------- */
+.clocks{display:grid;grid-template-columns:repeat(auto-fit,minmax(182px,1fr));
+  gap:1px;margin-top:34px;background:#2C353D;border:1px solid #2C353D}
+.clk{background:var(--board);padding:15px 16px 14px}
+.clk .lab{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.11em;
+  color:var(--board-dim);margin-bottom:8px}
+.clk .val{font-family:"IBM Plex Mono",monospace;font-weight:600;
+  font-size:clamp(23px,4.4vw,31px);line-height:1;letter-spacing:-0.01em;color:var(--board-text)}
+.clk.hot .val{color:var(--late)}
+.clk .sub{font-size:12px;color:var(--board-dim);margin-top:7px}
+
+/* ---------- board ---------- */
+.board{margin-top:32px;border-top:1px solid #2C353D}
+.brow{display:grid;grid-template-columns:minmax(148px,1.05fr) 2fr minmax(108px,auto);
+  gap:16px;align-items:center;padding:10px 0;border-bottom:1px solid #2C353D}
+.brow .place{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:13.5px;
+  letter-spacing:.04em;color:var(--board-text)}
+.brow .note{font-size:13.5px;color:var(--board-dim);line-height:1.4}
+.stat{font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:600;letter-spacing:.09em;
+  padding:4px 9px;justify-self:start;white-space:nowrap}
+.s-done{background:var(--done);color:#0F140F}
+.s-wait,.s-block{background:#3C464F;color:var(--board-text)}
+.s-block{color:var(--board-dim)}
+.brow.ours{background:var(--board-2);margin:0 -14px;padding:15px 14px;border-bottom:0}
+.brow.ours .place{color:var(--late);font-size:15.5px}
+.brow.ours .note{color:var(--board-text)}
+.s-late{background:var(--late);color:#14191E}
+.boardnote{margin-top:13px;font-size:13px;color:var(--board-dim);max-width:60ch}
+
+.act{display:inline-block;margin-top:30px;background:var(--late);color:#14191E;
+  font-weight:600;font-size:17px;text-decoration:none;padding:15px 30px;border-radius:2px}
+.act:hover{background:#F5B535}
+
+/* ---------- sections ---------- */
+section{padding:54px 0}
+section+section{border-top:1px solid var(--rule)}
+h2{font-size:clamp(27px,4.6vw,44px);max-width:16ch;margin-bottom:18px}
+
+.harm{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:26px;margin:28px 0 8px}
+.harm div{border-top:3px solid var(--flag);padding-top:11px}
+.harm b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
+  font-size:30px;letter-spacing:-0.03em;line-height:1}
+.harm span{display:block;font-size:15px;color:var(--ink-soft);margin-top:6px}
+
+.pull{margin:30px 0;padding:4px 0 4px 20px;border-left:4px solid var(--flag);max-width:33ch}
+.pull p{font-family:"Bricolage Grotesque",sans-serif;font-weight:600;
+  font-size:clamp(22px,3.4vw,30px);line-height:1.1;letter-spacing:-0.028em;margin:0}
+
+.qa{max-width:var(--measure)}
+.qa h3{font-size:19px;margin:24px 0 6px}
+.qa p{font-size:16px;color:var(--ink-soft)}
+
+/* ---------- action builder ---------- */
+#act{background:var(--paper-2)}
+.to{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0 26px}
+.chip{font-size:13.5px;background:var(--card);border:1px solid var(--rule);
+  padding:7px 12px;border-radius:2px}
+.chip b{font-weight:600}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:start}
+@media (max-width:780px){.grid2{grid-template-columns:1fr}}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:13.5px;font-weight:600;margin-bottom:5px}
+.hint{font-size:13px;color:var(--ink-soft);margin-top:4px}
+input,select,textarea{width:100%;font-family:inherit;font-size:16px;padding:11px 12px;
+  border:1px solid var(--rule);background:#fff;color:var(--ink);border-radius:2px}
+textarea{line-height:1.5;resize:vertical}
+#mine{min-height:112px}
+.minewrap{border:2px solid var(--flag);border-radius:2px;padding:14px;background:var(--card)}
+.minewrap label{font-size:14.5px}
+.minewrap .hint{margin-top:7px}
+
+.out{background:var(--card);border:1px solid var(--rule);border-radius:2px;
+  padding:22px 22px 24px;white-space:pre-wrap;font-size:15.5px;line-height:1.6;
+  max-height:460px;overflow:auto}
+.out .gap{color:var(--flag);background:#F6E7E2;padding:1px 4px}
+.outhead{display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+  margin-bottom:9px;flex-wrap:wrap}
+.outhead h3{font-size:17px}
+.wc{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-soft)}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 8px}
+.btn{font-family:inherit;font-size:15px;font-weight:600;padding:11px 18px;cursor:pointer;
+  border-radius:2px;border:1px solid var(--ink);background:transparent;color:var(--ink);
+  text-decoration:none;display:inline-block}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn-go{background:var(--ink);color:var(--paper)}
+.btn-go:hover{background:var(--flag);border-color:var(--flag);color:#fff}
+.said{font-size:14px;font-weight:600;color:var(--done);min-height:20px}
+.warn{font-size:13.5px;color:var(--flag);margin-top:6px}
+
+/* ---------- help / volunteer / contact ---------- */
+.ways{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:1px;
+  margin-top:28px;background:var(--rule);border:1px solid var(--rule)}
+.way{background:var(--paper);padding:20px 19px 21px}
+.way h3{font-size:18px;margin-bottom:7px}
+.way p{font-size:15px;color:var(--ink-soft);margin-bottom:12px}
+.way a.mini{font-size:14.5px;font-weight:600;text-decoration:none;
+  border-bottom:2px solid var(--late);padding-bottom:1px}
+.way a.mini:hover{border-color:var(--flag)}
+
+.split{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:start}
+@media (max-width:740px){.split{grid-template-columns:1fr;gap:26px}}
+
+/* ---------- footer ---------- */
+footer{background:var(--board);color:var(--board-dim);font-size:14px;padding:38px 0 50px}
+footer h3{font-size:16px;color:var(--paper-2);margin:0 0 10px}
+footer a{color:var(--board-text)}
+footer ol{padding-left:19px;margin:0;max-width:var(--measure)}
+footer li{margin-bottom:6px;line-height:1.45}
+.fine{margin-top:22px;padding-top:17px;border-top:1px solid #2C353D;max-width:var(--measure)}
+
+@media (max-width:640px){
+  .hero{padding:34px 0 32px}
+  section{padding:40px 0}
+  .brow{grid-template-columns:1fr auto;gap:5px 12px;align-items:start}
+  .brow .note{grid-column:1/-1;order:3}
+  .brow.ours{margin:0 -12px;padding:14px 12px}
+}
+</style>
+</head>
+<body>
+<div class="bar">
+  <div class="wrap">
+    <a class="mark" href="#top">ontario<b>is</b>late.ca</a>
+    <nav>
+      <a href="#harm">The harm</a>
+      <a href="#stuck">Why it's stuck</a>
+      <a href="#against">Objections</a>
+      <a href="#help">Ways to help</a>
+      <a class="go" href="#act">Write your MPP</a>
+    </nav>
+  </div>
+</div>
+
+<div class="hero" id="top">
+  <div class="wrap">
+    <h1>Ontario is <span>late.</span></h1>
+    <p class="say">We passed the law to stop changing the clocks in 2020. It received royal assent. It has never been switched on. Six provinces and territories stop on 1 November — Ontario doesn't, and it needs one signature to join them.</p>
+
+    <a class="act" style="margin-top:22px" href="#act">Write your MPP — four minutes</a>
+
+    <div class="clocks">
+      <div class="clk">
+        <div class="lab">TORONTO, RIGHT NOW</div>
+        <div class="val" id="now">—</div>
+        <div class="sub" id="nowsub">&nbsp;</div>
+      </div>
+      <div class="clk hot">
+        <div class="lab">UNTIL WE CHANGE THEM AGAIN</div>
+        <div class="val" id="cd">—</div>
+        <div class="sub" id="cdsub">&nbsp;</div>
+      </div>
+      <div class="clk">
+        <div class="lab">WAITING FOR ONE SIGNATURE</div>
+        <div class="val" id="days">—</div>
+        <div class="sub">days since royal assent, 30 Nov 2020</div>
+      </div>
+    </div>
+
+    <div class="board" role="table" aria-label="Status of ending the twice-yearly clock change, by jurisdiction">
+      <div class="brow" role="row"><span class="place" role="cell">YUKON</span><span class="note" role="cell">On a single year-round time since 2020</span><span class="stat s-done" role="cell">DONE</span></div>
+      <div class="brow" role="row"><span class="place" role="cell">NORTHWEST TERR.</span><span class="note" role="cell">Moved to year-round daylight time</span><span class="stat s-done" role="cell">DONE</span></div>
+      <div class="brow" role="row"><span class="place" role="cell">SASKATCHEWAN</span><span class="note" role="cell">Hasn't changed its clocks in decades</span><span class="stat s-done" role="cell">DONE</span></div>
+      <div class="brow" role="row"><span class="place" role="cell">BRITISH COLUMBIA</span><span class="note" role="cell">Last clock change 8 March 2026. Stopped waiting for Washington, Oregon and California</span><span class="stat s-done" role="cell">DONE</span></div>
+      <div class="brow" role="row"><span class="place" role="cell">ALBERTA</span><span class="note" role="cell">Committed to year-round daylight time from the November transition</span><span class="stat s-done" role="cell">DONE</span></div>
+      <div class="brow" role="row"><span class="place" role="cell">MANITOBA</span><span class="note" role="cell">Announced 17 September 2026 after consulting 72,000 people</span><span class="stat s-done" role="cell">DONE</span></div>
+      <div class="brow" role="row"><span class="place" role="cell">QUEBEC</span><span class="note" role="cell">Asked 214,000 people. 91% said end it. Its government hasn't moved</span><span class="stat s-wait" role="cell">WAITING</span></div>
+      <div class="brow" role="row"><span class="place" role="cell">NEW YORK STATE</span><span class="note" role="cell">Legally cannot act without the US Congress. Its own bill waits on five other states</span><span class="stat s-block" role="cell">BLOCKED</span></div>
+      <div class="brow ours" role="row"><span class="place" role="cell">ONTARIO</span><span class="note" role="cell">Law passed. Royal assent granted. Proclamation withheld</span><span class="stat s-late" role="cell">LATE</span></div>
+    </div>
+    <p class="boardnote">On 1 November, none of those six will touch their clocks. Ontario will put its back an hour.</p>
+
+    <a class="act" href="#act">Write your MPP</a>
+  </div>
+</div>
+
+<section id="harm">
+  <div class="wrap">
+    <h2>The switching is the part that hurts</h2>
+    <p class="kick">Not the hour we keep — the act of moving it. Every March and every November, the same damage turns up in the same figures.</p>
+    <div class="harm">
+      <div><b>+6%</b><span>Fatal collisions in the week after we spring forward</span></div>
+      <div><b>+11%</b><span>Diagnosed depressive episodes after we fall back, fading over ten weeks</span></div>
+      <div><b>Monday</b><span>Cardiac admissions and workplace injuries both spike on the first one</span></div>
+    </div>
+    <p class="body" style="margin-top:22px">No single one of these is a crisis. Together they are a cost the province chooses to pay, twice a year, on dates it sets itself. Queen's Park read this evidence in 2020 and voted unanimously to stop paying it.</p>
+  </div>
+</section>
+
+<section id="stuck">
+  <div class="wrap">
+    <h2>A law nobody voted against, waiting on a vote in Albany</h2>
+    <div class="prose">
+      <p class="kick">The Time Amendment Act, 2020 comes into force when the Attorney General proclaims it. The government said it would do that once Quebec and New York State did the same.</p>
+      <p class="body">New York can't. No American state may adopt permanent daylight time without an act of Congress, and New York's own bill is written to wait on Connecticut, Massachusetts, New Jersey, Pennsylvania and Vermont first. The federal Sunshine Protection Act passed the House 308&ndash;117 in July 2026 and now sits in the Senate, where the identical idea passed in 2022 and then died.</p>
+      <p class="body">So a decision that belongs to Ontario was handed to a foreign legislature, which handed it on to five more, which are waiting on a Congress that hasn't finished in eight years of trying. That isn't coordination. It's an indefinite delay with a polite name.</p>
+    </div>
+  </div>
+</section>
+
+<section id="canada">
+  <div class="wrap">
+    <h2>We spent this year arguing the opposite</h2>
+    <div class="prose">
+      <p class="kick">In November 2025 every province and territory signed the Canadian Mutual Recognition Agreement: a good lawfully sold in one jurisdiction can be sold in all of them. The IMF puts the value of finishing that work at roughly $210 billion in real GDP.</p>
+      <p class="body">When the federal minister responsible explained what mutual recognition was for, the example she reached for was a trucker who shouldn't have to move his lights to a slightly different position because he crossed a provincial boundary.</p>
+    </div>
+    <div class="pull"><p>We agreed truckers shouldn't move their headlights. We still make them move their clocks.</p></div>
+    <div class="prose">
+      <p class="body">Ontario didn't just sign that agreement — Ontario led it. In July the Canadian Federation of Independent Business gave the province an A+, a grade outside its own published scale, for holding no exceptions whatsoever under the Canadian Free Trade Agreement. Ontario's own <em>Protect Ontario Through Free Trade Within Canada Act</em> put an "as of right" framework in place on 1 January, spanning more than fifty regulators and some three hundred certifications.</p>
+      <p class="body">One arbitrary difference between Canadian jurisdictions is left that Ontario could remove by signature. On that one, we are harmonizing with New York State instead of with Manitoba.</p>
+      <p class="body">Doing nothing has a price now, too. From November, Manitoba sits at UTC&minus;5 all year &mdash; Ontario's winter clock. So the gap between the two provinces will be an hour in summer and nothing in winter, where for decades it was simply an hour. Any dispatcher scheduling across that border now has to track which half of the year it is. That is a new barrier between two Canadian provinces, put up in the same year Ontario was graded top of the class for pulling them down, and we built it by sitting still.</p>
+    </div>
+  </div>
+</section>
+
+<section id="against">
+  <div class="wrap">
+    <h2>The arguments against</h2>
+    <div class="qa">
+      <h3>Sleep scientists say permanent <em>standard</em> time.</h3>
+      <p>They do, and it's the strongest objection to us. The American Academy of Sleep Medicine, the Canadian Sleep Society and the Canadian Society for Chronobiology all favour standard time on circadian grounds. We think they're right that morning light matters and wrong about the priority. The switching is what the harm is measured from; Ontario's law provides for daylight time, and Quebec's and Manitoba's consultations both asked for it. Stop changing first. Argue about which hour to keep after.</p>
+      <h3>Winter mornings will be dark.</h3>
+      <p>True, and it's the real cost. Toronto sunrise reaches roughly 8:50 a.m. in late December. School boards can shift start times, and several Canadian jurisdictions are about to demonstrate how that works in practice. This is the trade-off the legislature already weighed and accepted in 2020.</p>
+      <h3>Polling says people prefer standard time.</h3>
+      <p>American polling does. Canadian consultations keep landing the other way — Manitoba 58% to 34% for daylight time, Quebec roughly three-quarters. Ask Canadians and you get a different answer.</p>
+      <h3>We'll be out of step with the United States.</h3>
+      <p>We're already out of step with six Canadian jurisdictions, and from November we'll be out of step with Manitoba in two directions depending on the season. The question was never whether to align. It's who with.</p>
+    </div>
+  </div>
+</section>
+
+<section id="act">
+  <div class="wrap">
+    <h2>Write your MPP. Four minutes.</h2>
+    <p class="kick">Identical form letters get logged once. Put one honest sentence of your own in, and it becomes a letter a constituency office has to count.</p>
+
+    <div class="to">
+      <span class="chip"><b>To:</b> <span id="toWho">your MPP</span></span>
+      <span class="chip"><b>Cc:</b> Premier Doug Ford</span>
+      <span class="chip"><b>Cc:</b> Attorney General Doug Downey</span>
+    </div>
+
+    <div class="grid2">
+      <div>
+        <div class="field">
+          <label for="mpp">Your MPP</label>
+          <select id="mpp"></select>
+          <div class="hint">Not sure? Find your riding at <a href="https://www.ola.org/en/members/current" target="_blank" rel="noopener">ola.org</a>.</div>
+        </div>
+        <div class="field"><label for="uname">Your name</label><input id="uname" type="text" autocomplete="name" placeholder="Jane Okafor"></div>
+        <div class="field"><label for="ucity">Your city or town</label><input id="ucity" type="text" autocomplete="address-level2" placeholder="Peterborough"></div>
+        <div class="field">
+          <label for="angle">The angle that fits you best</label>
+          <select id="angle">
+            <option value="health">The health and safety toll</option>
+            <option value="kids">What it does to kids and family routines</option>
+            <option value="canada">That we harmonize with everyone except Canada</option>
+            <option value="business">The cost to work and business</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <div class="minewrap">
+          <label for="mine">In your own words — what does the clock change actually cost you?</label>
+          <textarea id="mine" placeholder="One or two honest sentences. A specific thing that happened, not a general complaint. Example: the Monday after we sprang forward in March, my four-year-old was up at 4:40 every morning for a week and my husband took a day off."></textarea>
+          <div class="hint">This is the part staff actually read. Everything else in the letter they've seen before.</div>
+        </div>
+        <div class="btns">
+          <button class="btn" id="again">Reword the rest</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:30px">
+      <div class="outhead">
+        <h3>Your letter, ready to send</h3>
+        <span class="wc" id="wc"></span>
+      </div>
+      <div class="out" id="out" aria-live="polite"></div>
+      <div class="btns">
+        <button class="btn btn-go" id="mail">Send to all three</button>
+        <a class="btn" id="gmail" target="_blank" rel="noopener">Open in Gmail</a>
+        <button class="btn" id="copy">Copy the letter</button>
+      </div>
+      <div class="said" id="said"></div>
+      <div class="warn" id="warn" hidden></div>
+      <p class="hint" style="max-width:var(--measure)">Sends from your own email, in your own name — which is exactly why it counts. Nothing is submitted to this site and we never see your letter.</p>
+    </div>
+  </div>
+</section>
+
+<section id="help">
+  <div class="wrap">
+    <h2>Other ways to help</h2>
+    <p class="kick">The letter is the main thing. These are the next four.</p>
+    <div class="ways">
+      <div class="way">
+        <h3>Send someone the link</h3>
+        <p>One line and a link. Don't argue the case yourself — this page will do it. Volume is the whole strategy.</p>
+        <a class="mini" id="wa" href="#" target="_blank" rel="noopener">Share on WhatsApp</a><br>
+        <a class="mini" id="copylink" href="#" style="display:inline-block;margin-top:9px">Copy the link</a>
+      </div>
+      <div class="way">
+        <h3>Write your local paper</h3>
+        <p>Regional dailies print a high share of what they receive, and a clipping from a local paper gets an MPP's attention faster than email does.</p>
+        <a class="mini" href="#contact">Get the 150-word draft</a>
+      </div>
+      <div class="way">
+        <h3>Say it in person</h3>
+        <p>Constituency offices hold open hours and MPPs hold town halls. Five minutes face to face outweighs fifty emails.</p>
+        <a class="mini" href="https://www.ola.org/en/members/current" target="_blank" rel="noopener">Find your MPP's office</a>
+      </div>
+      <div class="way">
+        <h3>Bring your organization</h3>
+        <p>Chambers of commerce, boards of trade, unions, school councils and trucking associations all carry more weight than individuals. Manitoba's chamber backed the change publicly.</p>
+        <a class="mini" href="#contact">Ask us for the one-pager</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <h2 style="font-size:clamp(24px,3.6vw,33px)">Volunteer</h2>
+        <p class="body">This is one person and a spreadsheet. It could use a few more. The jobs that actually need doing right now: collecting short first-person stories from people in specific ridings, pitching regional radio and TV before the 1 November change, and checking the MPP list after every by-election.</p>
+        <p class="body">No meetings, no commitment, no mailing list you can't leave.</p>
+        <p><a class="btn btn-go" href="mailto:hello@ontarioislate.ca?subject=I%20can%20help&amp;body=Hi%20%E2%80%94%20I%27d%20like%20to%20help.%20I%27m%20in%20the%20riding%20of%3A%20%0A%0AWhat%20I%20could%20do%3A%20%0A">Email us</a></p>
+      </div>
+      <div>
+        <h2 style="font-size:clamp(24px,3.6vw,33px)">Contact</h2>
+        <p class="body"><b>General and volunteering</b><br><a href="mailto:hello@ontarioislate.ca">hello@ontarioislate.ca</a></p>
+        <p class="body"><b>Media</b><br><a href="mailto:media@ontarioislate.ca">media@ontarioislate.ca</a><br>We can supply sourcing, the full dataset behind the board above, and constituents in most regions who are willing to speak on the record.</p>
+        <p class="body"><b>Corrections</b><br>If anything on this page is wrong, tell us and we'll fix it and say what changed. Accuracy is the only asset a campaign like this has.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="wrap">
+    <h3>Where these numbers come from</h3>
+    <ol>
+      <li>Bill 214, Time Amendment Act, 2020 — royal assent 30 November 2020; in force by proclamation, conditioned on Quebec and New York State.</li>
+      <li>Province of Manitoba, 17 September 2026 — permanent daylight time; consultation ~72,000 responses, 58% daylight / 34% standard.</li>
+      <li>Province of British Columbia — final clock change 8 March 2026; 2019 engagement, 223,000 responses, 93% in favour of ending changes.</li>
+      <li>Alberta Bill 31, tabled 23 April 2026 — permanent Mountain Daylight Time from the November transition.</li>
+      <li>Gouvernement du Québec consultation, 2024&ndash;25 — 214,000+ responses; 91% to abolish, roughly three-quarters preferring daylight time.</li>
+      <li>H.R. 139, Sunshine Protection Act — passed the U.S. House 308&ndash;117 on 14 July 2026; pending in the Senate.</li>
+      <li>Canadian Mutual Recognition Agreement — signed 19 November 2025; in force June 2026. IMF estimate of ~$210 billion via CFIB.</li>
+      <li>CFIB, <em>State of Internal Trade</em>, July 2026 — Ontario and the federal government awarded A+ on Canadian Free Trade Agreement exceptions for holding none.</li>
+      <li>Fritz et al., <em>Current Biology</em> (2020) — ~6% rise in fatal crashes in the week after the spring transition.</li>
+      <li>Hansen et al., <em>Epidemiology</em> (2017) — 11% rise in incidence of unipolar depressive episodes after the autumn transition, across 185,419 hospital contacts.</li>
+      <li>MPP contact details read from each member's page at <a href="https://www.ola.org/en/members/current" target="_blank" rel="noopener">ola.org</a>. 124 seats, 3 currently vacant. The Attorney General may also be reached through the <a href="https://www.ontario.ca/page/ministry-attorney-general" target="_blank" rel="noopener">Ministry of the Attorney General</a>.</li>
+    </ol>
+    <div class="fine">
+      <p>The sleep researchers who argue for permanent standard time deserve a hearing, and we've given them one above. What both sides agree on is that the switching has to stop.</p>
+      <p style="margin-bottom:0">Independent volunteer campaign. No funding, no party affiliation, no connection to the Government of Ontario. Nothing on this page is submitted anywhere — your letter is composed in your own browser and sent from your own email.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   CONFIG — change these two if your addresses differ
+   ============================================================ */
+const PREMIER = "premier@ontario.ca";              // Office of the Premier
+const AG      = "doug.downey@pc.ola.org";          // Attorney General, MPP address
+const SITE    = "https://ontarioislate.ca";
+
+/* ============================================================
+   ROSTER — read from each member's page at ola.org. Not guessed.
+   Re-verify after any by-election. 3 seats currently vacant:
+   Hamilton East—Stoney Creek, Scarborough Southwest, York—Simcoe.
+   ============================================================ */
+/* Ontario MPPs — 44th Parliament. 124 seats, 3 vacant (Hamilton East—Stoney Creek,
+   Scarborough Southwest, York—Simcoe). Every address below was read from that
+   member's page at ola.org. None are pattern-guessed. Re-verify after by-elections. */
+const MPPS = [
+{n:"Tyler Allsopp",r:"Bay of Quinte",p:"PC",e:"tyler.allsopp@pc.ola.org"},
+{n:"Deepak Anand",r:"Mississauga—Malton",p:"PC",e:"deepak.anandco@pc.ola.org"},
+{n:"Aris Babikian",r:"Scarborough—Agincourt",p:"PC",e:"aris.babikian@pc.ola.org"},
+{n:"Robert Bailey",r:"Sarnia—Lambton",p:"PC",e:"bob.bailey@pc.ola.org"},
+{n:"Peter Bethlenfalvy",r:"Pickering—Uxbridge",p:"PC",e:"peter.bethlenfalvy@pc.ola.org"},
+{n:"Will Bouma",r:"Brantford—Brant",p:"PC",e:"will.bouma@pc.ola.org"},
+{n:"Ric Bresee",r:"Hastings—Lennox and Addington",p:"PC",e:"ric.bresee@pc.ola.org"},
+{n:"Paul Calandra",r:"Markham—Stouffville",p:"PC",e:"paul.calandra@pc.ola.org"},
+{n:"Raymond Sung Joon Cho",r:"Scarborough North",p:"PC",e:"raymond.cho@pc.ola.org"},
+{n:"Stan Cho",r:"Willowdale",p:"PC",e:"stan.cho@pc.ola.org"},
+{n:"Monica Ciriello",r:"Hamilton Mountain",p:"PC",e:"monica.ciriello@pc.ola.org"},
+{n:"Steve Clark",r:"Leeds—Grenville—Thousand Islands and Rideau Lakes",p:"PC",e:"steve.clark@pc.ola.org"},
+{n:"Lorne Coe",r:"Whitby",p:"PC",e:"lorne.coe@pc.ola.org"},
+{n:"Michelle Cooper",r:"Eglinton—Lawrence",p:"PC",e:"michelle.cooper@pc.ola.org"},
+{n:"Stephen Crawford",r:"Oakville",p:"PC",e:"stephen.crawford@pc.ola.org"},
+{n:"Rudy Cuzzetto",r:"Mississauga—Lakeshore",p:"PC",e:"rudy.cuzzetto@pc.ola.org"},
+{n:"George Darouze",r:"Carleton",p:"PC",e:"george.darouze@pc.ola.org"},
+{n:"Billy Denault",r:"Renfrew—Nipissing—Pembroke",p:"PC",e:"billy.denault@pc.ola.org"},
+{n:"Jess Dixon",r:"Kitchener South—Hespeler",p:"PC",e:"jess.dixon@pc.ola.org"},
+{n:"Andrew Dowie",r:"Windsor—Tecumseh",p:"PC",e:"andrew.dowie@pc.ola.org"},
+{n:"Doug Downey",r:"Barrie—Springwater—Oro-Medonte",p:"PC",e:"doug.downey@pc.ola.org"},
+{n:"Jill Dunlop",r:"Simcoe North",p:"PC",e:"jill.dunlop@pc.ola.org"},
+{n:"Victor Fedeli",r:"Nipissing",p:"PC",e:"vic.fedeli@pc.ola.org"},
+{n:"Mohamed Firin",r:"York South—Weston",p:"PC",e:"mohamed.firin@pc.ola.org"},
+{n:"Rob Flack",r:"Elgin—Middlesex—London",p:"PC",e:"rob.flack@pc.ola.org"},
+{n:"Doug Ford",r:"Etobicoke North",p:"PC",e:"doug.fordco@pc.ola.org"},
+{n:"Dawn Gallagher Murphy",r:"Newmarket—Aurora",p:"PC",e:"dawn.gallaghermurphy@pc.ola.org"},
+{n:"Hardeep Singh Grewal",r:"Brampton East",p:"PC",e:"hardeep.grewal@pc.ola.org"},
+{n:"Silvia Gualtieri",r:"Mississauga East—Cooksville",p:"PC",e:"silvia.gualtieri@pc.ola.org"},
+{n:"Zee Hamid",r:"Milton",p:"PC",e:"zee.hamid@pc.ola.org"},
+{n:"Ernie Hardeman",r:"Oxford",p:"PC",e:"ernie.hardeman@pc.ola.org"},
+{n:"Mike Harris",r:"Kitchener—Conestoga",p:"PC",e:"mike.harris@pc.ola.org"},
+{n:"Kevin Holland",r:"Thunder Bay—Atikokan",p:"PC",e:"kevin.holland@pc.ola.org"},
+{n:"Sylvia Jones",r:"Dufferin—Caledon",p:"PC",e:"sylvia.jones@pc.ola.org"},
+{n:"Trevor Jones",r:"Chatham-Kent—Leamington",p:"PC",e:"trevor.jones@pc.ola.org"},
+{n:"John Jordan",r:"Lanark—Frontenac—Kingston",p:"PC",e:"john.jordan@pc.ola.org"},
+{n:"Logan Kanapathi",r:"Markham—Thornhill",p:"PC",e:"logan.kanapathico@pc.ola.org"},
+{n:"Michael S. Kerzner",r:"York Centre",p:"PC",e:"michael.kerzner@pc.ola.org"},
+{n:"Andrea Khanjin",r:"Barrie—Innisfil",p:"PC",e:"andrea.khanjin@pc.ola.org"},
+{n:"Natalia Kusendova-Bashta",r:"Mississauga Centre",p:"PC",e:"natalia.kusendova@pc.ola.org"},
+{n:"Anthony Leardi",r:"Essex",p:"PC",e:"anthony.leardi@pc.ola.org"},
+{n:"Stephen Lecce",r:"King—Vaughan",p:"PC",e:"stephen.lecce@pc.ola.org"},
+{n:"Todd J. McCarthy",r:"Durham",p:"PC",e:"todd.mccarthy@pc.ola.org"},
+{n:"Graham McGregor",r:"Brampton North",p:"PC",e:"graham.mcgregor@pc.ola.org"},
+{n:"Sam Oosterhoff",r:"Niagara West",p:"PC",e:"sam.oosterhoff@pc.ola.org"},
+{n:"Billy Pang",r:"Markham—Unionville",p:"PC",e:"billy.pangco@pc.ola.org"},
+{n:"Michael Parsa",r:"Aurora—Oak Ridges—Richmond Hill",p:"PC",e:"michael.parsaco@pc.ola.org"},
+{n:"David Piccini",r:"Northumberland—Peterborough South",p:"PC",e:"david.piccini@pc.ola.org"},
+{n:"Natalie Pierre",r:"Burlington",p:"PC",e:"natalie.pierre@pc.ola.org"},
+{n:"Steve Pinsonneault",r:"Lambton—Kent—Middlesex",p:"PC",e:"steve.pinsonneault@pc.ola.org"},
+{n:"George Pirie",r:"Timmins",p:"PC",e:"george.pirie@pc.ola.org"},
+{n:"Nolan Quinn",r:"Stormont—Dundas—South Glengarry",p:"PC",e:"nolan.quinn@pc.ola.org"},
+{n:"Joseph Racinsky",r:"Wellington—Halton Hills",p:"PC",e:"joseph.racinsky@pc.ola.org"},
+{n:"Matthew Rae",r:"Perth—Wellington",p:"PC",e:"matthew.rae@pc.ola.org"},
+{n:"Greg Rickford",r:"Kenora—Rainy River",p:"PC",e:"greg.rickford@pc.ola.org"},
+{n:"Brian Riddell",r:"Cambridge",p:"PC",e:"brian.riddell@pc.ola.org"},
+{n:"Bill Rosenberg",r:"Algoma—Manitoulin",p:"PC",e:"bill.rosenberg@pc.ola.org"},
+{n:"Sheref Sabawy",r:"Mississauga—Erin Mills",p:"PC",e:"sheref.sabawy@pc.ola.org"},
+{n:"Amarjot Sandhu",r:"Brampton West",p:"PC",e:"amarjot.sandhu@pc.ola.org"},
+{n:"Prabmeet Singh Sarkaria",r:"Brampton South",p:"PC",e:"prabmeet.sarkaria@pc.ola.org"},
+{n:"Stéphane Sarrazin",r:"Glengarry—Prescott—Russell",p:"PC",e:"stephane.sarrazin@pc.ola.org"},
+{n:"Brian Saunderson",r:"Simcoe—Grey",p:"PC",e:"brian.saunderson@pc.ola.org"},
+{n:"Laurie Scott",r:"Haliburton—Kawartha Lakes—Brock",p:"PC",e:"laurie.scott@pc.ola.org"},
+{n:"Donna Skelly",r:"Flamborough—Glanbrook",p:"PC",e:"donna.skelly@pc.ola.org"},
+{n:"Dave Smith",r:"Peterborough—Kawartha",p:"PC",e:"dave.smith@pc.ola.org"},
+{n:"David Smith",r:"Scarborough Centre",p:"PC",e:"david.smith1@pc.ola.org"},
+{n:"Graydon Smith",r:"Parry Sound—Muskoka",p:"PC",e:"graydon.smith@pc.ola.org"},
+{n:"Laura Smith",r:"Thornhill",p:"PC",e:"laura.smith@pc.ola.org"},
+{n:"Kinga Surma",r:"Etobicoke Centre",p:"PC",e:"kinga.surmaco@pc.ola.org"},
+{n:"Nina Tangri",r:"Mississauga—Streetsville",p:"PC",e:"nina.tangri@pc.ola.org"},
+{n:"Vijay Thanigasalam",r:"Scarborough—Rouge Park",p:"PC",e:"vijay.thanigasalam@pc.ola.org"},
+{n:"Lisa M. Thompson",r:"Huron—Bruce",p:"PC",e:"lisa.thompson@pc.ola.org"},
+{n:"Michael A. Tibollo",r:"Vaughan—Woodbridge",p:"PC",e:"michael.tibolloco@pc.ola.org"},
+{n:"Effie J. Triantafilopoulos",r:"Oakville North—Burlington",p:"PC",e:"effie.triantafilopoulos@pc.ola.org"},
+{n:"Paul Vickers",r:"Bruce—Grey—Owen Sound",p:"PC",e:"paul.vickers@pc.ola.org"},
+{n:"Daisy Wai",r:"Richmond Hill",p:"PC",e:"daisy.wai@pc.ola.org"},
+{n:"Charmaine A. Williams",r:"Brampton Centre",p:"PC",e:"charmaine.williams@pc.ola.org"},
+{n:"Teresa J. Armstrong",r:"London—Fanshawe",p:"NDP",e:"tarmstrong-co@ndp.on.ca"},
+{n:"Jessica Bell",r:"University—Rosedale",p:"NDP",e:"jbell-qp@ndp.on.ca"},
+{n:"Guy Bourgouin",r:"Mushkegowuk—James Bay",p:"NDP",e:null},
+{n:"Jeff Burch",r:"Niagara Centre",p:"NDP",e:"jburch-qp@ndp.on.ca"},
+{n:"Catherine Fife",r:"Waterloo",p:"NDP",e:"cfife-qp@ndp.on.ca"},
+{n:"Jennifer K. French",r:"Oshawa",p:"NDP",e:"jfrench-qp@ndp.on.ca"},
+{n:"Wayne Gates",r:"Niagara Falls",p:"NDP",e:"wgates-qp@ndp.on.ca"},
+{n:"France Gélinas",r:"Nickel Belt",p:"NDP",e:"fgelinas-qp@ndp.on.ca"},
+{n:"Alexa Gilmour",r:"Parkdale—High Park",p:"NDP",e:"agilmour-qp@ndp.on.ca"},
+{n:"Chris Glover",r:"Spadina—Fort York",p:"NDP",e:"cglover-qp@ndp.on.ca"},
+{n:"Lisa Gretzky",r:"Windsor West",p:"NDP",e:"lgretzky-qp@ndp.on.ca"},
+{n:"Terence Kernaghan",r:"London North Centre",p:"NDP",e:"tkernaghan-qp@ndp.on.ca"},
+{n:"Robin Lennox",r:"Hamilton Centre",p:"NDP",e:"rlennox-qp@ndp.on.ca"},
+{n:"Sol Mamakwa",r:"Kiiwetinoong",p:"NDP",e:"smamakwa-qp@ndp.on.ca"},
+{n:"Catherine McKenney",r:"Ottawa Centre",p:"NDP",e:"cmckenney-co@ndp.on.ca"},
+{n:"Chandra Pasma",r:"Ottawa West—Nepean",p:"NDP",e:"cpasma-qp@ndp.on.ca"},
+{n:"Tom Rakocevic",r:"Humber River—Black Creek",p:"NDP",e:"trakocevic-qp@ndp.on.ca"},
+{n:"Peggy Sattler",r:"London West",p:"NDP",e:"psattler-qp@ndp.on.ca"},
+{n:"Sandy Shaw",r:"Hamilton West—Ancaster—Dundas",p:"NDP",e:"sshaw-qp@ndp.on.ca"},
+{n:"Jennifer (Jennie) Stevens",r:"St. Catharines",p:"NDP",e:"jstevens-qp@ndp.on.ca"},
+{n:"Marit Stiles",r:"Davenport",p:"NDP",e:"mstiles-qp@ndp.on.ca"},
+{n:"Peter Tabuns",r:"Toronto—Danforth",p:"NDP",e:"tabunsp-qp@ndp.on.ca"},
+{n:"John Vanthof",r:"Timiskaming—Cochrane",p:"NDP",e:"jvanthof-qp@ndp.on.ca"},
+{n:"Lise Vaugeois",r:"Thunder Bay—Superior North",p:"NDP",e:"lvaugeois-qp@ndp.on.ca"},
+{n:"Jamie West",r:"Sudbury",p:"NDP",e:"jwest-qp@ndp.on.ca"},
+{n:"Kristyn Wong-Tam",r:"Toronto Centre",p:"NDP",e:"kwong-tam-qp@ndp.on.ca"},
+{n:"Stephen Blais",r:"Orléans",p:"Liberal",e:"sblais.mpp.co@liberal.ola.org"},
+{n:"Stephanie Bowman",r:"Don Valley West",p:"Liberal",e:"sbowman.mpp.co@liberal.ola.org"},
+{n:"Rob Cerjanec",r:"Ajax",p:"Liberal",e:"rcerjanec.mpp.co@liberal.ola.org"},
+{n:"Lucille Collard",r:"Ottawa—Vanier",p:"Liberal",e:"lcollard.mpp.co@liberal.ola.org"},
+{n:"Lee Fairclough",r:"Etobicoke—Lakeshore",p:"Liberal",e:"lfairclough.mpp.co@liberal.ola.org"},
+{n:"John Fraser",r:"Ottawa South",p:"Liberal",e:"jfraser.mpp.co@liberal.ola.org"},
+{n:"Andrea Hazell",r:"Scarborough—Guildwood",p:"Liberal",e:"ahazell.mpp.co@liberal.ola.org"},
+{n:"Ted Hsu",r:"Kingston and the Islands",p:"Liberal",e:"thsu.mpp.co@liberal.ola.org"},
+{n:"Karen McCrimmon",r:"Kanata—Carleton",p:"Liberal",e:"kmccrimmon-co@liberal.ola.org"},
+{n:"Mary-Margaret McMahon",r:"Beaches—East York",p:"Liberal",e:"mmcmahon.mpp.co@liberal.ola.org"},
+{n:"Adil Shamji",r:"Don Valley East",p:"Liberal",e:"ashamji.mpp.co@liberal.ola.org"},
+{n:"Stephanie Smyth",r:"Toronto—St. Paul's",p:"Liberal",e:"ssmyth.mpp.co@liberal.ola.org"},
+{n:"Jonathan Tsao",r:"Don Valley North",p:"Liberal",e:"jtsao.mpp.co@liberal.ola.org"},
+{n:"Tyler Watt",r:"Nepean",p:"Liberal",e:"tylerwatt.mpp.co@ola.org"},
+{n:"Aislinn Clancy",r:"Kitchener Centre",p:"Green",e:"aclancy-qp@ola.org"},
+{n:"Mike Schreiner",r:"Guelph",p:"Green",e:"mschreiner@ola.org"},
+{n:"Bobbi Ann Brady",r:"Haldimand—Norfolk",p:"Independent",e:"babrady-co@ola.org"},
+{n:"Chris Scott",r:"Sault Ste. Marie",p:"Independent",e:"cscott-co@ola.org"}
+];
+
+/* ============================================================
+   CLOCKS
+   ============================================================ */
+const ASSENT = new Date('2020-11-30T00:00:00-05:00');
+const TZ = 'America/Toronto';
+
+function nextChange(){
+  const now = new Date(), y = now.getUTCFullYear();
+  const nth = (yr, mo, n) => {
+    const d = new Date(Date.UTC(yr, mo, 1)); let c = 0;
+    for(;;){ if(d.getUTCDay() === 0){ c++; if(c === n) break; } d.setUTCDate(d.getUTCDate() + 1); }
+    return d.getUTCDate();
+  };
+  const c = [];
+  for(const yr of [y - 1, y, y + 1]){
+    c.push(new Date(Date.UTC(yr, 2,  nth(yr, 2, 2),  7, 0, 0))); // spring forward, 02:00 EST
+    c.push(new Date(Date.UTC(yr, 10, nth(yr, 10, 1), 6, 0, 0))); // fall back, 02:00 EDT
+  }
+  return c.filter(d => d > now).sort((a, b) => a - b)[0];
+}
+
+const fmtTime = new Intl.DateTimeFormat('en-CA',
+  {timeZone: TZ, hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false});
+const fmtZone = new Intl.DateTimeFormat('en-CA', {timeZone: TZ, timeZoneName: 'short'});
+const fmtDate = new Intl.DateTimeFormat('en-CA',
+  {timeZone: TZ, day: 'numeric', month: 'long', year: 'numeric'});
+
+function tick(){
+  const now = new Date();
+  document.getElementById('now').textContent = fmtTime.format(now);
+  const zp = fmtZone.formatToParts(now).find(p => p.type === 'timeZoneName');
+  document.getElementById('nowsub').textContent =
+    (zp ? zp.value : 'ET') + ' — and due to change';
+
+  const nxt = nextChange(), ms = nxt - now;
+  const d = Math.floor(ms / 864e5),
+        h = Math.floor(ms / 36e5) % 24,
+        m = Math.floor(ms / 6e4) % 60,
+        s = Math.floor(ms / 1e3) % 60;
+  document.getElementById('cd').textContent =
+    d + 'd ' + String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  document.getElementById('cdsub').textContent = fmtDate.format(nxt);
+
+  document.getElementById('days').textContent =
+    Math.floor((now - ASSENT) / 864e5).toLocaleString('en-CA');
+}
+tick(); setInterval(tick, 1000);
+
+/* ============================================================
+   ROSTER DROPDOWN
+   ============================================================ */
+const sel = document.getElementById('mpp');
+sel.innerHTML = '<option value="">Choose your MPP…</option>' +
+  MPPS.map((m, i) => [i, m]).sort((a, b) => a[1].r.localeCompare(b[1].r, 'en'))
+      .map(([i, m]) => `<option value="${i}">${m.r} — ${m.n}</option>`).join('');
+
+/* ============================================================
+   LETTER
+   ============================================================ */
+const pick = a => a[Math.floor(Math.random() * a.length)];
+let seed = {};
+function reseed(){
+  seed = {o: Math.random(), a: Math.random(), w: Math.random(), e: Math.random(), c: Math.random()};
+}
+const at = (arr, r) => arr[Math.floor(r * arr.length)];
+
+const OPEN = [
+  "I'm a constituent in {city}, writing about something that should have been settled six years ago.",
+  "I live in {city}. I'd like to raise a piece of unfinished business at Queen's Park.",
+  "Writing as a constituent in {city} about a law this legislature has already passed.",
+  "I'm one of your constituents in {city}, and I have a question about the Time Amendment Act."
+];
+const ASK = [
+  "Please press the government to proclaim the Time Amendment Act, 2020 and end the clock change.",
+  "I'd like you to push for proclamation of the Time Amendment Act, 2020.",
+  "My ask is simple: bring the Time Amendment Act, 2020 into force and let Ontario keep one time year-round.",
+  "Please ask the Attorney General to proclaim the Time Amendment Act, 2020."
+];
+const WHY = {
+  health: [
+    "The switch itself is what does the damage. Fatal collisions rise about 6% in the week after we spring forward, cardiac admissions spike on that first Monday, and a Danish study of 185,000 hospital contacts found an 11% rise in diagnosed depressive episodes after the autumn change. No single one of those is a crisis, but we schedule all of them, twice a year, for no benefit I can see.",
+    "Twice a year we run an avoidable experiment on fifteen million people: lost sleep, a measurable jump in fatal crashes that week, more heart attacks on the Monday. We know the cost and we keep paying it out of habit.",
+    "What bothers me is that the harm is documented and entirely self-inflicted — more fatal collisions the week we spring forward, more cardiac admissions, a measurable rise in depression diagnoses after we fall back."
+  ],
+  kids: [
+    "In our house the clock change costs the better part of a week. Bedtimes collapse, mornings get worse, everyone is short with each other. Multiply that by every family in the riding and it's a strange thing to inflict on people deliberately.",
+    "Anyone with young children knows what that weekend does. It takes days to rebuild a routine, and then we do it again in November.",
+    "The practical case is the one I feel. Kids' schedules take days to recover, school mornings get harder, and then we repeat the whole thing six months later."
+  ],
+  canada: [
+    "This province has spent a year arguing that arbitrary differences between Canadian jurisdictions are a drag on everyone — it signed the mutual recognition agreement, passed its own free-trade-within-Canada legislation, and was graded A+ for holding no exceptions at all. On the one difference we could remove with a signature, we are harmonizing with New York State instead of with Manitoba. I can't reconcile those two positions.",
+    "We agreed this year that a trucker shouldn't have to move his lights because he crossed a provincial boundary. We still make him move his clock. Ontario led the country on internal trade and then left the easiest barrier of all standing, because proclamation was made to wait on a state legislature that cannot legally act without Congress.",
+    "The condition was alignment with New York on trade. In a year when Ontario's whole economic strategy has been to integrate with the rest of Canada, deferring our own domestic policy to a state legislature — one itself waiting on five other states — is the opposite of what the province says it believes."
+  ],
+  business: [
+    "The Monday after the spring change shows up in workplace injury figures and in productivity. It's a scheduled dip in output that every employer absorbs twice a year, and proclamation would end it at no cost to the treasury.",
+    "From a business standpoint this is free. Injuries and lost workdays rise on the Monday after we spring forward, and evening daylight in winter reliably lifts retail and hospitality traffic.",
+    "For anyone running a business or a schedule, the switch is pure friction — a lost hour of output, a week of people at reduced capacity, and shift and transit schedules to rebuild twice a year."
+  ]
+};
+const ELSE = [
+  "On 1 November, Yukon, the Northwest Territories, British Columbia, Alberta, Saskatchewan and Manitoba all keep their clocks. Ontario changes its.",
+  "Six provinces and territories will hold their clocks this November. Manitoba was the most recent, moving in September after consulting 72,000 people.",
+  "British Columbia stopped waiting for its American neighbours in March, and Manitoba followed in September. Ontario has had the law to join them since 2020 and has never used it."
+];
+const END = [
+  "If you can raise this with the Attorney General, who holds the proclamation power, I'd be grateful — and glad to know where you land on it.",
+  "I'd appreciate knowing your own view, and whether you'd put it to the Attorney General directly.",
+  "I'd welcome a reply, and I'd particularly like to know whether the government still considers the New York condition realistic.",
+  "Thank you for reading. I'd be glad to know whether this is something you'd take up."
+];
+
+const GAP = "[ Your sentence goes here — use the box above. ]";
+const esc = s => s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+function parts(){
+  const name  = document.getElementById('uname').value.trim() || '[your name]';
+  const city  = document.getElementById('ucity').value.trim() || '[your city]';
+  const mine  = document.getElementById('mine').value.trim();
+  const i     = sel.value;
+  const m     = (i !== '' && MPPS[i]) ? MPPS[i] : null;
+  return {
+    name, city, mine, m,
+    lines: [
+      'Dear ' + (m ? m.n : '[MPP name]') + ',',
+      at(OPEN, seed.o).replace('{city}', city) + ' ' + at(ASK, seed.a),
+      at(WHY[document.getElementById('angle').value], seed.w),
+      at(ELSE, seed.e),
+      mine || GAP,
+      at(END, seed.c),
+      'Sincerely,\n' + name + '\n' + city + ', Ontario'
+    ]
+  };
+}
+
+function render(){
+  const p = parts();
+  const text = p.lines.join('\n\n');
+  const html = p.lines.map(l =>
+    (l === GAP) ? '<span class="gap">' + esc(l) + '</span>' : esc(l)
+  ).join('\n\n');
+  document.getElementById('out').innerHTML = html;
+  document.getElementById('wc').textContent =
+    text.trim().split(/\s+/).length + ' words';
+  document.getElementById('toWho').textContent = p.m ? p.m.n : 'your MPP';
+
+  const subject = 'Proclaiming the Time Amendment Act, 2020';
+  const to = p.m && p.m.e ? p.m.e : '';
+  const cc = [PREMIER, AG].join(',');
+
+  document.getElementById('gmail').href =
+    'https://mail.google.com/mail/?view=cm&fs=1' +
+    '&to=' + encodeURIComponent(to || cc) +
+    (to ? '&cc=' + encodeURIComponent(cc) : '') +
+    '&su=' + encodeURIComponent(subject) +
+    '&body=' + encodeURIComponent(text);
+
+  const warn = document.getElementById('warn');
+  if(p.m && !p.m.e){
+    warn.hidden = false;
+    warn.textContent = p.m.n + ' does not publish an email address. The letter will go to the Premier and the Attorney General — please also phone the constituency office, which is listed on ola.org.';
+  } else if(!p.mine){
+    warn.hidden = false;
+    warn.textContent = 'Add your own sentence above before you send. Without it this is a form letter, and form letters get counted once.';
+  } else {
+    warn.hidden = true;
+  }
+  return {text, to, cc, subject};
+}
+
+function say(m){
+  const t = document.getElementById('said');
+  t.textContent = m;
+  setTimeout(() => { if(t.textContent === m) t.textContent = ''; }, 4000);
+}
+
+['uname','ucity','mine','angle','mpp'].forEach(id =>
+  document.getElementById(id).addEventListener('input', render));
+document.getElementById('mpp').addEventListener('change', render);
+document.getElementById('angle').addEventListener('change', render);
+
+document.getElementById('again').onclick = () => { reseed(); render(); say('Reworded.'); };
+
+document.getElementById('copy').onclick = async () => {
+  const {text} = render();
+  try { await navigator.clipboard.writeText(text); say('Copied. Paste it into an email to all three.'); }
+  catch(e){
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); say('Copied.'); }
+    catch(_){ say('Select the letter above and copy it.'); }
+    ta.remove();
+  }
+};
+
+document.getElementById('mail').onclick = () => {
+  const {text, to, cc, subject} = render();
+  const url = 'mailto:' + encodeURIComponent(to || cc) +
+    '?' + (to ? 'cc=' + encodeURIComponent(cc) + '&' : '') +
+    'subject=' + encodeURIComponent(subject) +
+    '&body=' + encodeURIComponent(text);
+  if(url.length > 1900){
+    say('Long letter — if your mail app opens blank, use Copy instead.');
+  }
+  window.location.href = url;
+};
+
+/* ============================================================
+   SHARE
+   ============================================================ */
+const FORWARD =
+  "Ontario passed a law to stop changing the clocks in 2020. It was never switched on. " + SITE;
+
+document.getElementById('wa').href = 'https://wa.me/?text=' + encodeURIComponent(FORWARD);
+
+document.getElementById('copylink').onclick = async (ev) => {
+  ev.preventDefault();
+  const el = ev.currentTarget;
+  const original = el.textContent;
+  try { await navigator.clipboard.writeText(FORWARD); el.textContent = 'Copied — paste it anywhere'; }
+  catch(e){
+    const ta = document.createElement('textarea');
+    ta.value = FORWARD; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); el.textContent = 'Copied — paste it anywhere'; }
+    catch(_){ el.textContent = SITE; }
+    ta.remove();
+  }
+  setTimeout(() => { el.textContent = original; }, 3000);
+};
+
+reseed(); render();
+</script>
+</body>
+</html>
