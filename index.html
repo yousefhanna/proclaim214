@@ -255,6 +255,7 @@ footer li{margin-bottom:6px;line-height:1.45}
 .fineprint{font-size:12.5px;color:var(--ink-soft);margin:10px 0 0;line-height:1.45}
 .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 #subSaid{margin-top:8px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 @media (max-width:740px){.signup{grid-template-columns:1fr;gap:18px}}
 
 </style>
@@ -573,17 +574,18 @@ footer li{margin-bottom:6px;line-height:1.45}
   <div class="wrap">
     <div class="signup">
       <div>
-        <h2 style="font-size:clamp(24px,3.6vw,33px)">Get the newsletter</h2>
-        <p class="body" style="margin-bottom:0">A few times a year, when something actually happens. Not weekly.</p>
+        <h2 style="font-size:clamp(24px,3.6vw,33px)">Get updates</h2>
+        <p class="body" style="margin-bottom:0">We'll email you when something happens that's worth your time — a decision at Queen's Park, a news story, a moment when letters count. Otherwise, silence.</p>
       </div>
       <form id="subForm" novalidate>
         <div class="row">
           <label class="sr" for="subEmail">Email address</label>
           <input id="subEmail" type="email" autocomplete="email" placeholder="you@example.com" required>
-          <button class="btn btn-go" type="submit">Subscribe</button>
+          <button class="btn btn-go" type="submit">Keep me posted</button>
         </div>
-        <label class="check"><input type="checkbox" id="subConsent" required> Yes, email me updates about this campaign.</label>
-        <p class="fineprint">Sent by the Ontario Is Late campaign. Every email has an unsubscribe link. We don't share your address with anyone.</p>
+        <label class="check"><input type="checkbox" id="subConsent" required> Yes, email me about this campaign.</label>
+        <div class="hp" aria-hidden="true"><label>Leave this empty<input id="subHp" type="text" tabindex="-1" autocomplete="off"></label></div>
+        <p class="fineprint">Sent by the Ontario Is Late campaign. Reply to any email to be removed. We never share your address.</p>
         <div class="said" id="subSaid"></div>
       </form>
     </div>
@@ -635,10 +637,14 @@ const PREMIER = "premier@ontario.ca";              // Office of the Premier
 const AG      = "doug.downey@pc.ola.org";          // Attorney General, MPP address
 const SITE    = "https://ontarioislate.ca";
 
-/* Mailing list. Paste your provider's form endpoint here (Buttondown, Kit,
-   Mailchimp, Listmonk...). While it is empty the form falls back to opening
-   the visitor's email client addressed to hello@, so it is never broken. */
-const LIST_ACTION = "";
+/* Sign-ups arrive as email. Paste a form-to-email endpoint here:
+     Web3Forms  https://api.web3forms.com/submit   (no account; key by email)
+     Formspree  https://formspree.io/f/xxxxxxxx    (free tier, 50/month)
+   Set FORM_KEY too if the provider needs one (Web3Forms calls it access_key).
+   While FORM_ACTION is empty the form opens the visitor's mail client
+   addressed to LIST_EMAIL, so it degrades instead of failing silently. */
+const FORM_ACTION = "";
+const FORM_KEY    = "";
 const LIST_EMAIL  = "hello@ontarioislate.ca";
 
 /* ============================================================
@@ -956,39 +962,56 @@ document.getElementById('mpp').addEventListener('change', render);
 document.getElementById('angle').addEventListener('change', render);
 
 document.getElementById('again').onclick = () => { /* ============================================================
-   NEWSLETTER SIGNUP
+   SIGN-UPS  (posted to a form-to-email service; no list software)
    ============================================================ */
 (function(){
   const form = document.getElementById('subForm');
   if(!form) return;
-  const email = document.getElementById('subEmail');
+  const email   = document.getElementById('subEmail');
   const consent = document.getElementById('subConsent');
-  const out = document.getElementById('subSaid');
+  const hp      = document.getElementById('subHp');
+  const out     = document.getElementById('subSaid');
+  const btn     = form.querySelector('button[type=submit]');
   const tell = (msg, ok) => { out.textContent = msg; out.style.color = ok ? 'var(--done)' : 'var(--flag)'; };
 
   form.addEventListener('submit', async (ev) => {
     ev.preventDefault();
+    if(hp && hp.value){ tell('Thanks.', true); return; }   // bot filled the honeypot
+
     const addr = email.value.trim();
-    if(!addr || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(addr)){ tell('Enter a valid email address.', false); email.focus(); return; }
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(addr)){ tell('Enter a valid email address.', false); email.focus(); return; }
     if(!consent.checked){ tell('Please tick the box so we have your consent.', false); consent.focus(); return; }
 
-    if(!LIST_ACTION){
-      // No provider configured yet - hand it to the visitor's mail client.
+    if(!FORM_ACTION){
       window.location.href = 'mailto:' + LIST_EMAIL +
-        '?subject=' + encodeURIComponent('Subscribe') +
-        '&body=' + encodeURIComponent('Please add ' + addr + ' to the newsletter.');
-      tell('Opening your email app to finish signing up.', true);
+        '?subject=' + encodeURIComponent('Keep me posted') +
+        '&body=' + encodeURIComponent('Please add ' + addr + ' to the update list.');
+      tell('Opening your email app to finish.', true);
       return;
     }
+
+    btn.disabled = true; const label = btn.textContent; btn.textContent = 'Sending…';
     try{
-      const body = new FormData();
-      body.append('email', addr);
-      const res = await fetch(LIST_ACTION, {method:'POST', body, mode:'cors'});
+      const payload = {
+        email: addr,
+        consent: 'yes, express consent given on the website',
+        signed_up: new Date().toISOString(),
+        subject: 'New sign-up: ' + addr,
+        from_name: 'ontarioislate.ca'
+      };
+      if(FORM_KEY) payload.access_key = FORM_KEY;
+      const res = await fetch(FORM_ACTION, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+        body: JSON.stringify(payload)
+      });
       if(!res.ok) throw new Error(res.status);
       form.reset();
-      tell('Thanks. Check your inbox to confirm.', true);
+      tell("You're on the list. We'll be in touch when there's news.", true);
     }catch(e){
       tell('That did not go through. Email ' + LIST_EMAIL + ' and we will add you.', false);
+    }finally{
+      btn.disabled = false; btn.textContent = label;
     }
   });
 })();
@@ -1042,39 +1065,56 @@ document.getElementById('copylink').onclick = async (ev) => {
 };
 
 /* ============================================================
-   NEWSLETTER SIGNUP
+   SIGN-UPS  (posted to a form-to-email service; no list software)
    ============================================================ */
 (function(){
   const form = document.getElementById('subForm');
   if(!form) return;
-  const email = document.getElementById('subEmail');
+  const email   = document.getElementById('subEmail');
   const consent = document.getElementById('subConsent');
-  const out = document.getElementById('subSaid');
+  const hp      = document.getElementById('subHp');
+  const out     = document.getElementById('subSaid');
+  const btn     = form.querySelector('button[type=submit]');
   const tell = (msg, ok) => { out.textContent = msg; out.style.color = ok ? 'var(--done)' : 'var(--flag)'; };
 
   form.addEventListener('submit', async (ev) => {
     ev.preventDefault();
+    if(hp && hp.value){ tell('Thanks.', true); return; }   // bot filled the honeypot
+
     const addr = email.value.trim();
-    if(!addr || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(addr)){ tell('Enter a valid email address.', false); email.focus(); return; }
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(addr)){ tell('Enter a valid email address.', false); email.focus(); return; }
     if(!consent.checked){ tell('Please tick the box so we have your consent.', false); consent.focus(); return; }
 
-    if(!LIST_ACTION){
-      // No provider configured yet - hand it to the visitor's mail client.
+    if(!FORM_ACTION){
       window.location.href = 'mailto:' + LIST_EMAIL +
-        '?subject=' + encodeURIComponent('Subscribe') +
-        '&body=' + encodeURIComponent('Please add ' + addr + ' to the newsletter.');
-      tell('Opening your email app to finish signing up.', true);
+        '?subject=' + encodeURIComponent('Keep me posted') +
+        '&body=' + encodeURIComponent('Please add ' + addr + ' to the update list.');
+      tell('Opening your email app to finish.', true);
       return;
     }
+
+    btn.disabled = true; const label = btn.textContent; btn.textContent = 'Sending…';
     try{
-      const body = new FormData();
-      body.append('email', addr);
-      const res = await fetch(LIST_ACTION, {method:'POST', body, mode:'cors'});
+      const payload = {
+        email: addr,
+        consent: 'yes, express consent given on the website',
+        signed_up: new Date().toISOString(),
+        subject: 'New sign-up: ' + addr,
+        from_name: 'ontarioislate.ca'
+      };
+      if(FORM_KEY) payload.access_key = FORM_KEY;
+      const res = await fetch(FORM_ACTION, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+        body: JSON.stringify(payload)
+      });
       if(!res.ok) throw new Error(res.status);
       form.reset();
-      tell('Thanks. Check your inbox to confirm.', true);
+      tell("You're on the list. We'll be in touch when there's news.", true);
     }catch(e){
       tell('That did not go through. Email ' + LIST_EMAIL + ' and we will add you.', false);
+    }finally{
+      btn.disabled = false; btn.textContent = label;
     }
   });
 })();
